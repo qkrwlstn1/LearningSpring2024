@@ -6,10 +6,13 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Component
+@RequiredArgsConstructor //final이 붙은 값을 받는 생성자를 만들어줌
+
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository;
@@ -18,11 +21,8 @@ public class OrderServiceImpl implements OrderService{
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+    //생성자가 2개 이상일 때만 Autowired를 생략해도 괜찮다
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
